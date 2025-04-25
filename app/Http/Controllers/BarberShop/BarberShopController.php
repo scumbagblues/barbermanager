@@ -39,12 +39,12 @@ class BarberShopController extends Controller
             'email' => 'required|email|max:255',
         ]);
 
-        $barberShopSettings = Settings::first();
+        $barberShopSettings = BarberShop::first();
 
         if ($barberShopSettings) {
             $barberShopSettings->update($validatedData);
         } else {
-            Settings::create($validatedData);
+            BarberShop::create($validatedData);
         }
 
         return redirect()->route('barber-settings')

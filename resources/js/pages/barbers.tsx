@@ -1,0 +1,88 @@
+import { router } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
+import { CreateBarber } from '@/components/create-barber';
+import { DeleteBarber } from '@/components/delete-barber';
+import { Button } from '@/components/ui/button';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
+
+
+  interface Barber {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+}
+
+interface PageProps {
+    barbers: Barber[];
+    [key: string]: unknown; // Add index signature to satisfy the constraint
+} 
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Barber Management',
+        href: '/barbers',
+    },
+];
+
+export default function Barbers() {
+    const { barbers } = usePage<PageProps>().props;
+    
+    const handleEdit = (id: number) => {
+        router.visit(route('barbers.edit', { id }));
+    };
+
+    return (
+        <AppLayout breadcrumbs={breadcrumbs}>
+            <Head title="Barber Management" />
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
+                    <CreateBarber />
+                </div>
+                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
+                    <Table>
+                        <TableCaption>A list of your barbers.</TableCaption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Name</TableHead>
+                                <TableHead>E-mail</TableHead>
+                                <TableHead>Phone</TableHead>
+                                <TableHead>Adress</TableHead>
+                                <TableHead>Actions</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {barbers.map((barber) => (
+                                <TableRow key={barber.id}>
+                                    <TableCell className="font-medium">{barber.name}</TableCell>
+                                    <TableCell>{barber.email}</TableCell>
+                                    <TableCell>{barber.phone}</TableCell>
+                                    <TableCell>{barber.address}</TableCell>
+                                    <TableCell>
+                                        <div className="flex gap-2">
+                                            <Button variant="outline" size="sm" onClick={() => handleEdit(barber.id)}>
+                                                Edit
+                                            </Button>
+                                            <DeleteBarber barberId={barber.id} />
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
+        </AppLayout>
+    );
+}

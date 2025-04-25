@@ -31,6 +31,7 @@ export interface SharedData {
         success?: string;
         error?: string;
     };
+    barber?: Barber;
     [key: string]: unknown;
 }
 
@@ -52,3 +53,13 @@ export interface BarberShopSettings {
     email: string;
     [key: string]: string;
 }
+
+export interface Barber {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    [key: string]: unknown; // This allows for additional properties...
+}
+

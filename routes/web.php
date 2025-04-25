@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BarberShop\BarberController;
 use App\Http\Controllers\BarberShop\BarberShopController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 
 Route::get('/', function () {
@@ -16,6 +18,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('barber-settings', [BarberShopController::class, 'index'])->name('barber-settings');
     Route::post('barber-settings', [BarberShopController::class, 'store'])->name('barber-settings');
+    //Barbers Management 
+    Route::get('barbers', [BarberController::class, 'index'])->name('barbers');
+    Route::get('barbers/create', [BarberController::class, 'create'])->name('barbers.create');
+    Route::post('barbers', [BarberController::class, 'store'])->name('barbers.store');
+    Route::get('barbers/{id}', [BarberController::class, 'show'])->name('barbers.show');
+    Route::get('barbers/{id}/edit', [BarberController::class, 'edit'])->name('barbers.edit');
+    Route::put('barbers/{id}', [BarberController::class, 'update'])->name('barbers.update');
+    Route::delete('barbers/{id}', [BarberController::class, 'destroy'])->name('barbers.destroy'); 
 });
 
 require __DIR__.'/settings.php';

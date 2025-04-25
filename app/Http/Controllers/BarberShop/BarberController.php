@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\BarberShop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barbershop\Barber;
+use App\Models\Barbershop\BarberShop;
 use Illuminate\Http\Request;
 
 class BarberController extends Controller
@@ -11,8 +13,13 @@ class BarberController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   
+        $barbers = Barber::all(); // Obtén todos los barberos
+        
+        return inertia('barbers', [
+            'barbers' => $barbers,
+        ]);
+        
     }
 
     /**
@@ -28,7 +35,21 @@ class BarberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:barbers,email',
+            'phone' => 'required|string|max:15',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        // Get Barbershop ID from Barber Shop Table
+        $barbershopId = BarberShop::first()->id;
+        $request->merge(['barbershop_id' => $barbershopId]);
+
+        //Store the barber in the database
+        Barber::create($request->all());
+
+        return redirect()->route('barbers')->with('success', 'Barber created successfully.');
     }
 
     /**
@@ -44,7 +65,10 @@ class BarberController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $barber = Barber::findOrFail($id);
+        return inertia('barbershop/edit-barber', [
+            'barber' => $barber,
+        ]);
     }
 
     /**
@@ -52,7 +76,17 @@ class BarberController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:barbers,email,' . $id,
+            'phone' => 'required|string|max:15',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        $barber = Barber::findOrFail($id);
+        $barber->update($request->all());
+
+        return redirect()->route('barbers')->with('success', 'Barber updated successfully.');
     }
 
     /**
@@ -60,6 +94,9 @@ class BarberController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $barber = Barber::findOrFail($id);
+        $barber->delete();
+
+        return redirect()->route('barbers')->with('success', 'Barber deleted successfully.');
     }
 }
