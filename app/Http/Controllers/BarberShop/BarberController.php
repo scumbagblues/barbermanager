@@ -38,7 +38,7 @@ class BarberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:barbers,email',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|max:15|unique:barbers,phone',
             'address' => 'nullable|string|max:255',
         ]);
 
@@ -79,7 +79,7 @@ class BarberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:barbers,email,' . $id,
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|max:15|unique:barbers,phone,' . $id,
             'address' => 'nullable|string|max:255',
         ]);
 

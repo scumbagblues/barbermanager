@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BarberShop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barbershop\Appointment;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -12,7 +13,12 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        // Get all appointments
+        $appointments = Appointment::all();
+
+        return inertia('appointments', [
+            'appointments' => $appointments,
+        ]);
     }
 
     /**

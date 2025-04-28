@@ -32,6 +32,7 @@ export interface SharedData {
         error?: string;
     };
     barber?: Barber;
+    barbers?: Barber[]; // Lista de barberos
     [key: string]: unknown;
 }
 
