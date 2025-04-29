@@ -23,7 +23,12 @@ export function CommonList<T extends { id: number }>({
 }: ReusableTableProps<T>) {
 
     // Función para capitalizar la primera letra de un string
-    const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+    const capitalize = (str: string) => {
+        return str
+            .split('_') // Divide el string en partes donde haya guiones bajos
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza la primera letra de cada palabra
+            .join(' '); // Une las palabras con un espacio
+    };
 
     return (
         <Table>

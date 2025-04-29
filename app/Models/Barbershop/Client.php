@@ -14,6 +14,11 @@ class Client extends Model
         'barber_id',
     ];
 
+    protected $appends = [
+        'barber_name',
+    ];
+    
+
     public function barbershop()
     {
         return $this->belongsTo(BarberShop::class, 'barbershop_id');
@@ -25,5 +30,10 @@ class Client extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
-    }   
+    }  
+    
+    public function getBarberNameAttribute()
+    {
+        return $this->barber ? $this->barber->name : null;
+    }
 }

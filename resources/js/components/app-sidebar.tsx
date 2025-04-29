@@ -5,7 +5,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Settings, LayoutGrid, Scissors, CalendarIcon } from 'lucide-react';
+import { Settings, LayoutGrid, Scissors, CalendarIcon, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -18,6 +18,11 @@ const mainNavItems: NavItem[] = [
         title: 'Barber Management',
         url: '/barbers',
         icon: Scissors,
+    },
+    {
+        title: 'Clients Management',
+        url: '/clients',
+        icon: Users,
     },
     {
         title: 'Appointments',

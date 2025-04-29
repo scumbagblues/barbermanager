@@ -32,7 +32,9 @@ export interface SharedData {
         error?: string;
     };
     barber?: Barber;
+    client?: Client;
     barbers?: Barber[]; // Lista de barberos
+    clients?: Client[]; // Lista de barberos
     [key: string]: unknown;
 }
 
@@ -61,6 +63,16 @@ export interface Barber {
     email: string;
     phone: string;
     address: string;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface Client {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    barber_id: number;
+    barber_name: string;
     [key: string]: unknown; // This allows for additional properties...
 }
 

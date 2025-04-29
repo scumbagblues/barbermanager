@@ -11,7 +11,8 @@ import { type SharedData } from '@/types';
 
 
 export function CreateClient() {
-    const { flash } = usePage<SharedData>().props;
+    const { flash , barbers } = usePage<SharedData>().props;
+
 
     const { data, setData, post, errors, processing } = useForm({
         name: '',
@@ -38,6 +39,16 @@ export function CreateClient() {
         e.preventDefault();
         post(route('clients'), {
             preserveScroll: true,
+            onSuccess: () => {
+                // Restablecer el estado del formulario
+                setData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    address: '',
+                    barber_id: '',
+                });
+            },
         });
     };
 
@@ -58,7 +69,7 @@ export function CreateClient() {
                     </div>
                 </Transition>
                 <div className="space-y-6">
-                    <HeadingSmall title="Barber creation" description="Barber information" />
+                    <HeadingSmall title="Client creation" description="Client information" />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2 max-w-md">
@@ -127,23 +138,24 @@ export function CreateClient() {
 
                         <div className="grid gap-2 max-w-md">
                             <Label htmlFor="address">Barber</Label>
-                            <Select>
+                            <Select
+                                value={data.barber_id} // Vincula el valor del Select al estado barber_id
+                                onValueChange={(value) => setData('barber_id', value)} // Actualiza barber_id cuando cambia el valor
+                            >
                                 <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="Select a fruit" />
+                                    <SelectValue placeholder="Select a barber" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                    <SelectLabel>Fruits</SelectLabel>
-                                    <SelectItem value="apple">Apple</SelectItem>
-                                    <SelectItem value="banana">Banana</SelectItem>
-                                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                                    <SelectItem value="grapes">Grapes</SelectItem>
-                                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                                    <SelectLabel>Barbers</SelectLabel>
+                                    {barbers?.map((barber) => (
+                                        <SelectItem key={barber.id} value={String(barber.id)}>
+                                            {barber.name}
+                                        </SelectItem>
+                                    ))}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
-
-                            <InputError className="mt-2" message={errors.barber_id} />
                         </div>
 
                 
