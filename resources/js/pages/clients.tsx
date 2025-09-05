@@ -10,14 +10,14 @@ import { CommonList } from '@/components/common-list';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Clients Management',
+        title: 'Gestión de Clientes',
         href: '/clients',
     },
 ];
 
 export default function Clients() {
     const { clients } = usePage<SharedData>().props;
-     console.log(clients);
+ 
     const headers = ['name', 'email', 'phone', 'barber_name', 'Actions'];
     
     const handleEdit = (id: number) => {
@@ -26,7 +26,7 @@ export default function Clients() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Client Management" />
+            <Head title="Configuración de clientes" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                     <CreateClient />
@@ -36,12 +36,12 @@ export default function Clients() {
                 <CommonList
                     headers={headers}
                     data={clients || []} // Si clients es undefined, pasa un array vacío
-                    caption="A list of your clients."
+                    caption="Lista de Clientes."
                 >
                     {(client) => (
                         <div className="flex gap-2">
                            <Button variant="outline" size="sm" onClick={() => handleEdit(client.id)}>
-                                Edit
+                                Editar
                             </Button>
                             <DeleteClient clientId={client.id} />
                         </div>

@@ -86,7 +86,7 @@ class BarberController extends Controller
         $barber = Barber::findOrFail($id);
         $barber->update($request->all());
 
-        return redirect()->route('barbers')->with('success', 'Barber updated successfully.');
+        return redirect()->route('barbers')->with('success', 'Barbero actualizado.');
     }
 
     /**
@@ -97,6 +97,6 @@ class BarberController extends Controller
         $barber = Barber::findOrFail($id);
         $barber->delete();
 
-        return redirect()->route('barbers')->with('success', 'Barber deleted successfully.');
+        return redirect()->route('barbers')->with('success', 'Barber eliminado.');
     }
 }

@@ -7,7 +7,7 @@ export function Footer() {
 
     return (
         <footer
-            className={`fixed bottom-0 left-0 w-full py-4 ${
+            className={`fixed bottom-0 left-0 w-full py-2 ${
                 isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-800'
             }`}
         >

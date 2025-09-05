@@ -4,10 +4,12 @@ namespace App\Models\Barbershop;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Appointment extends Model
 {
     protected $fillable = [
-        'appointment_date',
+        'start_time',
+        'end_time',
         'status',
         'notes',
         'client_id',
@@ -20,8 +22,18 @@ class Appointment extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function barber()
+    {
+        return $this->belongsTo(Barber::class);
+    }
+
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'appointment_service');
     }
 }

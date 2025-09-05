@@ -15,27 +15,27 @@ class ServicesSeeder extends Seeder
         \App\Models\Barbershop\Service::create([
             'name' => 'Corte de Cabello',
             'duration' => 30,
-            'description' => 'A standard haircut.',
+            'description' => 'Corte de cabello sencillo.',
             'price' => 180.00,
         ]);
 
         \App\Models\Barbershop\Service::create([
             'name' => 'Afeitado Clásico',
             'duration' => 15,
-            'description' => 'A classic shave.',
+            'description' => 'Afeitado clasico.',
             'price' => 200.00,
         ]);
 
         \App\Models\Barbershop\Service::create([
             'name' => 'Corte de cabello y Afeitado',
             'duration' => 45,
-            'description' => 'A haircut and shave combo.',
+            'description' => 'Corte de cabello y afeitado.',
             'price' => 300.00,
         ]);
         \App\Models\Barbershop\Service::create([
             'name' => 'Corte de Cabello para Niños',
             'duration' => 20,
-            'description' => 'A haircut for children.',
+            'description' => 'Corte de cabello paea niños.',
             'price' => 150.00,
         ]);
     }

@@ -14,7 +14,7 @@ import HeadingSmall from '@/components/heading-small';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Clients Management',
+        title: 'Gestión de Clientes',
         href: '/clients',
     },
 ];
@@ -52,7 +52,7 @@ export default function EditClient() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Barber Management" />
+            <Head title="Gestión de la Barbería" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                     <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -70,11 +70,11 @@ export default function EditClient() {
                             </div>
                         </Transition>
                         <div className="space-y-6">
-                            <HeadingSmall title="Barber creation" description="Barber information" />
+                            <HeadingSmall title="Creación de clientes" description="Información de clientes" />
 
                             <form onSubmit={submit} className="space-y-6">
                                 <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Nombre</Label>
                                     <Input
                                         id="name"
                                         className="mt-1 block w-full"
@@ -82,7 +82,7 @@ export default function EditClient() {
                                         onChange={(e) => setData('name', e.target.value)}
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder="Nombre completo"
                                     />
 
                                     <InputError className="mt-2" message={errors.name} />
@@ -99,14 +99,14 @@ export default function EditClient() {
                                         onChange={(e) => setData('email', e.target.value)}
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder="Email"
                                     />
 
                                     <InputError className="mt-2" message={errors.email} />
                                 </div>
 
                                 <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="address">Phone</Label>
+                                    <Label htmlFor="address">Telefono</Label>
 
                                     <Input
                                         id="phone"
@@ -115,24 +115,24 @@ export default function EditClient() {
                                         value={data.phone}
                                         onChange={(e) => setData('phone', e.target.value)}
                                         required
-                                        placeholder="Phone"
+                                        placeholder="Telefono"
                                     />
 
                                     <InputError className="mt-2" message={errors.phone} />
                                 </div>
 
                                 <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="address">Barber</Label>
+                                    <Label htmlFor="address">Barbero</Label>
                                     <Select
                                         value={data.barber_id ? String(data.barber_id) : undefined} // Vincula el valor del Select al estado barber_id
-                                        onValueChange={(value) => setData('barber_id', value)} // Actualiza barber_id cuando cambia el valor
+                                        onValueChange={(value) => setData('barber_id', Number(value))} // Actualiza barber_id cuando cambia el valor
                                     >
                                         <SelectTrigger className="w-[180px]">
                                             <SelectValue placeholder="Select a barber" />
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
-                                            <SelectLabel>Barbers</SelectLabel>
+                                            <SelectLabel>Barberos</SelectLabel>
                                             {barbers?.map((barber) => (
                                                 <SelectItem key={barber.id} value={String(barber.id)}>
                                                     {barber.name}
@@ -145,7 +145,7 @@ export default function EditClient() {
 
                         
                                 <div className="flex items-center gap-4">
-                                    <Button disabled={processing}>Save</Button>
+                                    <Button disabled={processing}>Guardar</Button>
                                 </div>
                             </form>
                         </div>

@@ -48,7 +48,7 @@ class BarberShopController extends Controller
         }
 
         return redirect()->route('barber-settings')
-        ->with('success', 'BarberShop settings updated successfully.');
+        ->with('success', 'Opciones de la barbería actualizadas.');
     }
 
     /**

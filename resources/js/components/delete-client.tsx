@@ -25,23 +25,23 @@ export function DeleteClient({ clientId }: { clientId: number }) {
         <div className="space-y-6">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">Delete client</Button>
+                        <Button variant="destructive">Borrar Cliente</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <DialogTitle>Are you sure you want to delete this client?</DialogTitle>
+                        <DialogTitle>¿Esta seguro de borrar este cliente?</DialogTitle>
                         <DialogDescription>
-                            Once this client is deleted, all of its resources and data will also be permanently deleted.
+                            Una vez que este cliente sea borrado, todos sus recursos y datos también serán eliminados permanentemente.
                         </DialogDescription>
                         <form className="space-y-6" onSubmit={deleteClient}>
                             <DialogFooter className="gap-2">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeModal}>
-                                        Cancel
+                                        Cancelar
                                     </Button>
                                 </DialogClose>
 
                                 <Button variant="destructive" disabled={processing} asChild>
-                                    <button type="submit">Delete Client</button>
+                                    <button type="submit">Borrar Cliente</button>
                                 </Button>
                             </DialogFooter>
                         </form>

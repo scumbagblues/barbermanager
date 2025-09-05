@@ -14,7 +14,7 @@ import { type SharedData } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'BarberShop Settings',
+        title: 'Ajustes de la Barbería',
         href: '/barber-settings',
     },
 ];
@@ -43,7 +43,7 @@ export default function Settings() {
     
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Shop Settings" />
+            <Head title="Gestión de la Barbería" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {flash?.success && (
@@ -52,11 +52,11 @@ export default function Settings() {
                     </div>
                 )}
                 <div className="space-y-6">
-                    <HeadingSmall title="Shop information" description="Here is your shop information" />
+                    <HeadingSmall title="Información de la Barbería" description="Aqui esta la información de la barbería" />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Nombre</Label>
                             <Input
                                 id="name"
                                 className="mt-1 block w-full"
@@ -71,7 +71,7 @@ export default function Settings() {
                         </div>
 
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="address">Address</Label>
+                            <Label htmlFor="address">Dirección</Label>
 
                             <Input
                                 id="address"
@@ -80,14 +80,14 @@ export default function Settings() {
                                 value={data.address}
                                 onChange={(e) => setData('address', e.target.value)}
                                 required
-                                placeholder="Address"
+                                placeholder="Direccion"
                             />
 
                             <InputError className="mt-2" message={errors.email} />
                         </div>
 
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="address">Phone</Label>
+                            <Label htmlFor="address">Telefono</Label>
 
                             <Input
                                 id="phone"
@@ -96,7 +96,7 @@ export default function Settings() {
                                 value={data.phone}
                                 onChange={(e) => setData('phone', e.target.value)}
                                 required
-                                placeholder="Phone"
+                                placeholder="Telefono"
                             />
 
                             <InputError className="mt-2" message={errors.email} />
@@ -113,14 +113,14 @@ export default function Settings() {
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
                                 autoComplete="username"
-                                placeholder="Email address"
+                                placeholder="Email"
                             />
 
                             <InputError className="mt-2" message={errors.email} />
                         </div>
                 
                         <div className="flex items-center gap-4">
-                            <Button disabled={processing}>Save</Button>
+                            <Button disabled={processing}>Guardar</Button>
 
                             <Transition
                                 show={recentlySuccessful}
@@ -129,7 +129,7 @@ export default function Settings() {
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-neutral-600">Saved</p>
+                                <p className="text-sm text-neutral-600">Guardar</p>
                             </Transition>
                         </div>
                     </form>

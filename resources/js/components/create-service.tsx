@@ -9,15 +9,15 @@ import { Label } from '@/components/ui/label';
 import { type SharedData } from '@/types';
 
 
-export function CreateBarber() {
+export function CreateService() {
     const { flash } = usePage<SharedData>().props;
+
 
     const { data, setData, post, errors, processing } = useForm({
         name: '',
-        email: '',
-        phone: '',
-        address: '',
-        barbershop_id: '',
+        duration: '',
+        description: '',
+        price: '',
     });
 
     const [showSuccess, setShowSuccess] = useState(!!flash?.success);
@@ -35,8 +35,17 @@ export function CreateBarber() {
     
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('barbers'), {
+        post(route('services'), {
             preserveScroll: true,
+            onSuccess: () => {
+                // Restablecer el estado del formulario
+                setData({
+                    name: '',
+                    duration: '',
+                    description: '',
+                    price: '',
+                });
+            },
         });
     };
 
@@ -57,11 +66,11 @@ export function CreateBarber() {
                     </div>
                 </Transition>
                 <div className="space-y-6">
-                    <HeadingSmall title="Creación del barbero" description="Información del barbero" />
+                    <HeadingSmall title="Creación de Servicios" description="Información de Servicios" />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="name">Nombre</Label>
+                            <Label htmlFor="name">Nombre del Servicio</Label>
                             <Input
                                 id="name"
                                 className="mt-1 block w-full"
@@ -69,59 +78,60 @@ export function CreateBarber() {
                                 onChange={(e) => setData('name', e.target.value)}
                                 required
                                 autoComplete="name"
-                                placeholder="Full name"
+                                placeholder="Nombre del servicio"
                             />
 
                             <InputError className="mt-2" message={errors.name} />
                         </div>
 
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="duration">Duración</Label>
 
                             <Input
-                                id="email"
-                                type="email"
+                                id="duration"
+                                type="number"
                                 className="mt-1 block w-full"
-                                value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
+                                value={data.duration}
+                                onChange={(e) => setData('duration', e.target.value)}
                                 required
-                                autoComplete="username"
-                                placeholder="Email address"
+                                autoComplete="duration"
+                                placeholder="Duración en minutos"
                             />
 
-                            <InputError className="mt-2" message={errors.email} />
+                            <InputError className="mt-2" message={errors.duration} />
                         </div>
 
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="address">Telefono</Label>
+                            <Label htmlFor="description">Descripción</Label>
 
                             <Input
-                                id="phone"
-                                type="phone"
+                                id="description"
+                                type="text"
                                 className="mt-1 block w-full"
-                                value={data.phone}
-                                onChange={(e) => setData('phone', e.target.value)}
+                                value={data.description}
+                                onChange={(e) => setData('description', e.target.value)}
                                 required
-                                placeholder="Phone"
+                                placeholder="Descripción"
                             />
 
-                            <InputError className="mt-2" message={errors.phone} />
+                            <InputError className="mt-2" message={errors.description} />
                         </div>
 
                         <div className="grid gap-2 max-w-md">
-                            <Label htmlFor="address">Dirección</Label>
+                            <Label htmlFor="price">Precio</Label>
 
                             <Input
-                                id="address"
-                                type="address"
+                                id="Price"
+                                type="number"
+                                min="100"
                                 className="mt-1 block w-full"
-                                value={data.address}
-                                onChange={(e) => setData('address', e.target.value)}
+                                value={data.price}
+                                onChange={(e) => setData('price', e.target.value)}
                                 required
-                                placeholder="Address"
+                                placeholder="Precio"
                             />
 
-                            <InputError className="mt-2" message={errors.address} />
+                            <InputError className="mt-2" message={errors.price} />
                         </div>
 
                 
@@ -131,6 +141,5 @@ export function CreateBarber() {
                     </form>
                 </div>
             </div>    
-       
     );
 }    

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();    
             $table->unsignedBigInteger('barbershop_id');
-            $table->unsignedBigInteger('barber_id');
+            $table->unsignedBigInteger('barber_id')->nullable();
             $table->timestamps();
 
             $table->foreign('barber_id')->references('id')->on('barbers')->onDelete('cascade');

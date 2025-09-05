@@ -4,8 +4,10 @@ use App\Http\Controllers\BarberShop\AppointmentController;
 use App\Http\Controllers\BarberShop\BarberController;
 use App\Http\Controllers\BarberShop\BarberShopController;
 use App\Http\Controllers\BarberShop\ClientController;
+use App\Http\Controllers\BarberShop\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 
 
@@ -41,6 +43,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('clients/{id}/edit', [ClientController::class, 'edit'])->name('clients.edit');
     Route::put('clients/{id}', [ClientController::class, 'update'])->name('clients.update');
     Route::delete('clients/{id}', [ClientController::class, 'destroy'])->name('clients.destroy');
+
+    //Services Management
+    Route::get('services', [ServiceController::class, 'index'])->name('services');
+    Route::get('services/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::post('services', [ServiceController::class, 'store'])->name('services.store');
+    Route::get('services/{id}', [ServiceController::class, 'show'])->name('services.show');
+    Route::get('services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('services/{id}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+    //Appointments Management
+    Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments');
+    Route::get('appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('appointments/{id}', [AppointmentController::class, 'show'])->name('appointments.show');
+    Route::get('appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::put('appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::delete('appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 });
 
 require __DIR__.'/settings.php';

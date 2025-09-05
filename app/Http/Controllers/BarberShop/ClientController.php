@@ -47,14 +47,14 @@ class ClientController extends Controller
             'email' => 'required|email|max:255|unique:clients,email',
             'phone' => 'required|string|max:15|unique:clients,phone',
             'address' => 'nullable|string|max:255',
-            'barber_id' => 'required|exists:barbers,id', // Asegúrate de que el barbero exista
+            //'barber_id' => 'required|exists:barbers,id', // Asegúrate de que el barbero exista
         ]);
 
         // Crear el cliente en la base de datos
         Client::create($request->all());
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('clients')->with('success', 'Client created successfully.');
+        return redirect()->route('clients')->with('success', 'Cliente creado exitosamente.');
     }
 
     /**
@@ -97,7 +97,7 @@ class ClientController extends Controller
         $client->update($request->all());
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('clients')->with('success', 'Client updated successfully.');
+        return redirect()->route('clients')->with('success', 'Cliente actualizado.');
     }
 
     /**
@@ -110,6 +110,6 @@ class ClientController extends Controller
         $client->delete();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('clients')->with('success', 'Client deleted successfully.');
+        return redirect()->route('clients')->with('success', 'Cliente eliminado.');
     }
 }

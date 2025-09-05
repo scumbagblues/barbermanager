@@ -13,20 +13,20 @@ import HeadingSmall from '@/components/heading-small';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Barber Management',
-        href: '/barbers',
+        title: 'Services Management',
+        href: '/services',
     },
 ];
 
-export default function EditBarber() {
+export default function EditClient() {
 
-    const { flash, barber } = usePage<SharedData>().props; 
+    const { flash, service } = usePage<SharedData>().props; 
 
     const { data, setData, put, errors, processing } = useForm({
-            name: barber?.name,
-            email: barber?.email,
-            phone: barber?.phone,
-            address: barber?.address,
+            name: service?.name,
+            duration: service?.duration,
+            description: service?.description,
+            price: service?.price,
         });
     
         const [showSuccess, setShowSuccess] = useState(!!flash?.success);
@@ -44,14 +44,14 @@ export default function EditBarber() {
         
         const submit: FormEventHandler = (e) => {
             e.preventDefault();
-            put(route('barbers.update', { id: barber?.id}), {
+            put(route('services.update', { id: service?.id}), {
                 preserveScroll: true,
             });
         };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Gestión de Barberos" />
+            <Head title="Gestión de Servicios" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                     <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -63,17 +63,15 @@ export default function EditBarber() {
                             leave="transition ease-in-out duration-300"
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
-                            >
-                            <div className="bg-green-100 text-green-800 p-4 rounded-md">
-                                {flash?.success ?? ''}
-                            </div>
+                        >
+                            <div className="rounded-md bg-green-100 p-4 text-green-800">{flash?.success ?? ''}</div>
                         </Transition>
                         <div className="space-y-6">
-                            <HeadingSmall title="Creación de barberos" description="Información del barbero" />
+                            <HeadingSmall title="Barber creation" description="Barber information" />
 
                             <form onSubmit={submit} className="space-y-6">
-                                <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="name">Nombre</Label>
+                                <div className="grid max-w-md gap-2">
+                                    <Label htmlFor="name">Nombre del Servicio</Label>
                                     <Input
                                         id="name"
                                         className="mt-1 block w-full"
@@ -81,62 +79,62 @@ export default function EditBarber() {
                                         onChange={(e) => setData('name', e.target.value)}
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder="Nombre del servicio"
                                     />
 
                                     <InputError className="mt-2" message={errors.name} />
                                 </div>
 
-                                <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="email">Email</Label>
+                                <div className="grid max-w-md gap-2">
+                                    <Label htmlFor="duration">Duración</Label>
 
                                     <Input
-                                        id="email"
-                                        type="email"
+                                        id="duration"
+                                        type="number"
                                         className="mt-1 block w-full"
-                                        value={data.email}
-                                        onChange={(e) => setData('email', e.target.value)}
+                                        value={data.duration}
+                                        onChange={(e) => setData('duration', Number(e.target.value))}
                                         required
-                                        autoComplete="username"
-                                        placeholder="Email address"
+                                        autoComplete="duration"
+                                        placeholder="Duración en minutos"
                                     />
 
-                                    <InputError className="mt-2" message={errors.email} />
+                                    <InputError className="mt-2" message={errors.duration} />
                                 </div>
 
-                                <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="address">Telefono</Label>
+                                <div className="grid max-w-md gap-2">
+                                    <Label htmlFor="description">Descripción</Label>
 
                                     <Input
-                                        id="phone"
-                                        type="phone"
+                                        id="description"
+                                        type="text"
                                         className="mt-1 block w-full"
-                                        value={data.phone}
-                                        onChange={(e) => setData('phone', e.target.value)}
+                                        value={data.description}
+                                        onChange={(e) => setData('description', e.target.value)}
                                         required
-                                        placeholder="Phone"
+                                        placeholder="Descripción"
                                     />
 
-                                    <InputError className="mt-2" message={errors.phone} />
+                                    <InputError className="mt-2" message={errors.description} />
                                 </div>
 
-                                <div className="grid gap-2 max-w-md">
-                                    <Label htmlFor="address">Dirección</Label>
+                                <div className="grid max-w-md gap-2">
+                                    <Label htmlFor="price">Precio</Label>
 
                                     <Input
-                                        id="address"
-                                        type="address"
+                                        id="Price"
+                                        type="number"
+                                        min="100"
                                         className="mt-1 block w-full"
-                                        value={data.address}
-                                        onChange={(e) => setData('address', e.target.value)}
+                                        value={data.price}
+                                        onChange={(e) => setData('price', Number(e.target.value))}
                                         required
-                                        placeholder="Address"
+                                        placeholder="Precio"
                                     />
 
-                                    <InputError className="mt-2" message={errors.address} />
+                                    <InputError className="mt-2" message={errors.price} />
                                 </div>
 
-                        
                                 <div className="flex items-center gap-4">
                                     <Button disabled={processing}>Guardar</Button>
                                 </div>

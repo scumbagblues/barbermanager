@@ -47,7 +47,7 @@ export function CommonList<T extends { id: number }>({
                         {headers.map((header, index) => (
                             header !== 'Actions' ? (
                                 <TableCell key={index} className="font-medium">
-                                    {String(item[header as keyof T]) || ""}
+                                    {item[header as keyof T] != null ? String(item[header as keyof T]) : ""} {/* Manejar valores null */}
                                 </TableCell>
                             ) : null
                         ))}

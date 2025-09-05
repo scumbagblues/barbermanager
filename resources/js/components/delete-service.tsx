@@ -3,13 +3,13 @@ import { FormEventHandler } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-export function DeleteBarber({ barberId }: { barberId: number }) {
+export function DeleteService({ serviceId }: { serviceId: number }) {
 
-    const { delete: destroy, processing, reset, clearErrors } = useForm({ barberId });
-    const deleteBarber: FormEventHandler = (e) => {
+    const { delete: destroy, processing, reset, clearErrors } = useForm({ serviceId });
+    const deleteService: FormEventHandler = (e) => {
         e.preventDefault();
 
-        destroy(route('barbers.destroy', {id: barberId }), {
+        destroy(route('services.destroy', {id: serviceId }), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onFinish: () => reset(),
@@ -25,14 +25,14 @@ export function DeleteBarber({ barberId }: { barberId: number }) {
         <div className="space-y-6">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">Borrar Barbero</Button>
+                        <Button variant="destructive">Borrar Servicio</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <DialogTitle>¿Esta seguro de borrar a este barbero?</DialogTitle>
+                        <DialogTitle>¿Esta seguro de borrar este servicio?</DialogTitle>
                         <DialogDescription>
-                            Una vez que este barbero sea borrado, todos sus recursos y datos también serán eliminados permanentemente.
+                            Una vez que este servicio sea borrado, todos sus recursos y datos también serán eliminados permanentemente.
                         </DialogDescription>
-                        <form className="space-y-6" onSubmit={deleteBarber}>
+                        <form className="space-y-6" onSubmit={deleteService}>
                             <DialogFooter className="gap-2">
                                 <DialogClose asChild>
                                     <Button variant="secondary" onClick={closeModal}>
@@ -41,7 +41,7 @@ export function DeleteBarber({ barberId }: { barberId: number }) {
                                 </DialogClose>
 
                                 <Button variant="destructive" disabled={processing} asChild>
-                                    <button type="submit">Borrar Barbero</button>
+                                    <button type="submit">Borrar Servicio</button>
                                 </Button>
                             </DialogFooter>
                         </form>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name'); // e.g., haircut, shave, etc.
             $table->decimal('duration'); // duration of the service in minutes (e.g., 30, 60, 90)
             $table->text('description')->nullable(); // description of the service
-            $table->decimal('price', 8, 2); // price of the service
+            $table->decimal('price', 8, 2)->nullable(); // price of the service
             $table->timestamps();
         });
     }
