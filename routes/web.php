@@ -61,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
     Route::put('appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+    Route::get('barbers/{barberId}/appointments/{date}', [AppointmentController::class, 'getBarberAppointments'])->name('barbers.appointments');
 });
 
 require __DIR__.'/settings.php';

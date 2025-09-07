@@ -5,6 +5,8 @@ namespace App\Http\Controllers\BarberShop;
 use App\Http\Controllers\Controller;
 use App\Models\Barbershop\Barber;
 use App\Models\Barbershop\BarberShop;
+use App\Models\Barbershop\BarberSchedule;
+use App\Models\Barbershop\BarberVacation;
 use Illuminate\Http\Request;
 
 class BarberController extends Controller
@@ -66,8 +68,13 @@ class BarberController extends Controller
     public function edit(string $id)
     {
         $barber = Barber::findOrFail($id);
+        $schedules = BarberSchedule::where('barber_id', $barber->id)->get();
+        $vacations = BarberVacation::where('barber_id', $barber->id)->pluck('date')->toArray();
+  
         return inertia('barbershop/edit-barber', [
             'barber' => $barber,
+            'schedules' => $schedules,
+            'vacations' => $vacations,
         ]);
     }
 
@@ -84,7 +91,47 @@ class BarberController extends Controller
         ]);
 
         $barber = Barber::findOrFail($id);
-        $barber->update($request->all());
+        $barber->update($request->only(['name', 'email', 'phone', 'address']));
+
+        // Guardar horarios
+        BarberSchedule::where('barber_id', $barber->id)->delete();
+        $schedules = collect(range(0, 6))
+            ->map(function ($i) use ($request, $barber) {
+                $start = $request->input("schedule_{$i}_start");
+                $end = $request->input("schedule_{$i}_end");
+                if ($start && $end) {
+                    return [
+                        'barber_id' => $barber->id,
+                        'day_of_week' => $i,
+                        'start_hour' => $start,
+                        'end_hour' => $end,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+                return null;
+            })
+            ->filter()
+            ->values()
+            ->all();
+
+        if (!empty($schedules)) {
+            BarberSchedule::insert($schedules);
+        }
+
+        // Guardar vacaciones
+        BarberVacation::where('barber_id', $barber->id)->delete();
+        $vacations = $request->input('vacations', []);
+        if (is_array($vacations)) {
+            foreach ($vacations as $date) {
+                if ($date) {
+                    BarberVacation::create([
+                        'barber_id' => $barber->id,
+                        'date' => $date,
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('barbers')->with('success', 'Barbero actualizado.');
     }

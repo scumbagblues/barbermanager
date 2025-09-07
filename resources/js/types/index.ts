@@ -1,3 +1,4 @@
+
 import { LucideIcon } from 'lucide-react';
 
 export interface Auth {
@@ -32,6 +33,8 @@ export interface SharedData {
         error?: string;
     };
     barber?: Barber;
+    schedules?: Schedule[];
+    vacations?: Vacation[];
     client?: Client;
     service?: Service;
     appointment?: Appointment;
@@ -99,4 +102,12 @@ export interface Appointment {
     status: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Schedule {
+    day_of_week: number;
+    start_hour: string;
+    end_hour: string;
+}
+
+export type Vacation = string;
 

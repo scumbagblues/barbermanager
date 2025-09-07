@@ -7,16 +7,13 @@ export function Footer() {
 
     return (
         <footer
-            className={`fixed bottom-0 left-0 w-full py-2 ${
+            className={`absolute bottom-0 left-0 w-full py-2 px-4 z-50 shadow-lg ${
                 isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-800'
             }`}
         >
-            <div className="container mx-auto text-center">
+            <div className="max-w-4xl mx-auto text-center">
                 <p className="text-sm">
-                    © {new Date().getFullYear()} Barber Manager. All rights reserved.
-                </p>
-                <p className="text-sm">
-                    Built by Supercharged Inc.
+                    © {new Date().getFullYear()} Barber Manager. All rights reserved. Built by Supercharged Inc.
                 </p>
             </div>
         </footer>

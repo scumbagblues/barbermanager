@@ -11,10 +11,10 @@ class Appointment extends Model
         'start_time',
         'end_time',
         'status',
+        'total_price',
         'notes',
         'client_id',
         'barber_id',
-        'service_id',
     ];
 
     public function client()
