@@ -17,11 +17,24 @@ class AppointmentController extends Controller
     public function index()
     {
         // Get all appointments
-        $appointments = Appointment::all();
-
+        $appointments = Appointment::with(['client', 'barber', 'services'])->get();
+        $result = $appointments->map(function($appointment) {
+            return [
+                'id' => $appointment->id,
+                'fecha_cita' => $appointment->start_time,
+                'precio' => $appointment->total_price,
+                'cliente' => $appointment->client ? $appointment->client->name : null,
+                'barbero' => $appointment->barber ? $appointment->barber->name : null,
+                'servicios' => $appointment->services->map(function($service) {
+                    return $service->name;
+                })->toArray(),
+                // Puedes agregar más campos si lo necesitas
+            ];
+        });
+        
         return inertia('appointments/list', [
-            'appointments' => $appointments,
-        ]); 
+            'appointments' => $result,
+        ]);
     }
 
     /**
@@ -128,7 +141,11 @@ class AppointmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $appointment = Appointment::findOrFail($id);
+        $appointment->services()->detach();
+        $appointment->delete();
+
+        return redirect()->route('appointments')->with('success', 'Cita eliminada correctamente.');
     }
 
     public function getBarberAppointments($barberId, $date)

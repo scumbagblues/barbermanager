@@ -22,8 +22,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function AppointmentCreate() {
     const { flash, barbers, services, clients } = usePage<SharedData>().props;
 
-    const [barberAppointments, setBarberAppointments] = useState<any[]>([]);
-    const [barberSchedules, setBarberSchedules] = useState<any[]>([]);
+    const [barberAppointments, setBarberAppointments] = useState<{ start_time: string; end_time: string }[]>([]);
+    const [barberSchedules, setBarberSchedules] = useState<{ start_hour: string; end_hour: string }[]>([]);
     const [availableTimes, setAvailableTimes] = useState<string[]>([]);
 
 
@@ -107,7 +107,7 @@ export default function AppointmentCreate() {
             while (current.getTime() + slotDuration * 60000 <= end.getTime()) {
                 const slotStart = new Date(current);
                 const slotEnd = new Date(current.getTime() + slotDuration * 60000);
-                const overlap = Array.isArray(barberAppointments) && barberAppointments.some((appt: any) => {
+                const overlap = Array.isArray(barberAppointments) && barberAppointments.some((appt: { start_time: string; end_time: string }) => {
                     const apptStart = new Date(appt.start_time);
                     const apptEnd = new Date(appt.end_time);
                     return (
