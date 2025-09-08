@@ -6,6 +6,7 @@ import { Head, usePage } from '@inertiajs/react';
 import { CommonList } from '@/components/common-list';
 import AppointmentsLayout  from '@/layouts/appointments/layout';
 import { DeleteAppointment } from '@/components/delete-appointment';
+import { ChangeStatusAppointment } from '@/components/change-status-appointment';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -30,7 +31,7 @@ export default function Appointments() {
             }
         }, [flash?.success]);
 
-    const headers = ['fecha_cita', 'cliente', 'barbero', 'servicios', 'Actions'];
+    const headers = ['fecha_cita', 'cliente', 'barbero', 'servicios', 'precio', 'status', 'Actions'];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -47,19 +48,24 @@ export default function Appointments() {
             </Transition>
             <Head title="Configuración de citas" />
             <AppointmentsLayout>
-                <div className="mx-auto flex h-full max-w-screen-lg flex-col gap-4 rounded-xl p-4">
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
-                        <CommonList
-                            headers={headers}
-                            data={appointments || []} // Si clients es undefined, pasa un array vacío
-                            caption="Lista de Citas."
-                        >
-                            {(appointment) => (
-                                <div className="flex gap-2">
-                                    <DeleteAppointment appointmentId={appointment.id} />
-                                </div>
-                            )}
-                        </CommonList>
+                <div className="mx-auto flex h-full flex-col gap-4 rounded-xl p-4 overflow-x-auto">
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 rounded-xl border md:min-h-min">
+                        <div className="w-full">
+                            <CommonList
+                                headers={headers}
+                                data={appointments || []}
+                                caption="Lista de Citas."
+                                
+                            >
+                                {(appointment) => (
+                                    <div className="flex gap-2">
+                                        <ChangeStatusAppointment 
+                                            appointmentId={appointment.id}  currentStatus={appointment.status} />
+                                        <DeleteAppointment appointmentId={appointment.id} />
+                                    </div>
+                                )}
+                            </CommonList>
+                        </div>
                     </div>
                 </div>
             </AppointmentsLayout>

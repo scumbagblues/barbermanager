@@ -13,6 +13,7 @@ interface ReusableTableProps<T> {
     data: T[]; // Datos de la tabla
     caption?: string; // Texto opcional para el caption
     children: (item: T) => React.ReactNode; // Renderizado personalizado para las acciones
+    tableClassName?: string; // Clase personalizada para la tabla
 }
 
 export function CommonList<T extends { id: number }>({

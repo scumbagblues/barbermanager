@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('appointments/{id}', [AppointmentController::class, 'show'])->name('appointments.show');
     Route::get('appointments/{id}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
     Route::put('appointments/{id}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::put('appointments/{id}/status', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
     Route::delete('appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
     Route::get('barbers/{barberId}/appointments/{date}', [AppointmentController::class, 'getBarberAppointments'])->name('barbers.appointments');
 });

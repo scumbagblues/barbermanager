@@ -6,6 +6,7 @@ import { CreateClient } from '@/components/create-client';
 import { DeleteClient } from '@/components/delete-client';
 import { Button } from '@/components/ui/button';
 import { CommonList } from '@/components/common-list';
+import { UserPenIcon } from "lucide-react";
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -41,7 +42,7 @@ export default function Clients() {
                     {(client) => (
                         <div className="flex gap-2">
                            <Button variant="outline" size="sm" onClick={() => handleEdit(client.id)}>
-                                Editar
+                                <UserPenIcon />
                             </Button>
                             <DeleteClient clientId={client.id} />
                         </div>

@@ -6,6 +6,7 @@ import { CreateService } from '@/components/create-service';
 import { DeleteService } from '@/components/delete-service';
 import { Button } from '@/components/ui/button';
 import { CommonList } from '@/components/common-list';
+import { UserPenIcon } from "lucide-react";
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -39,7 +40,7 @@ export default function Clients() {
                     {(service) => (
                         <div className="flex gap-2">
                            <Button variant="outline" size="sm" onClick={() => handleEdit(service.id)}>
-                                Edit
+                                <UserPenIcon />
                             </Button>
                             <DeleteService serviceId={service.id} />
                         </div>

@@ -22,12 +22,13 @@ class AppointmentController extends Controller
             return [
                 'id' => $appointment->id,
                 'fecha_cita' => $appointment->start_time,
-                'precio' => $appointment->total_price,
+                'precio' => '$' . $appointment->total_price,
                 'cliente' => $appointment->client ? $appointment->client->name : null,
                 'barbero' => $appointment->barber ? $appointment->barber->name : null,
                 'servicios' => $appointment->services->map(function($service) {
                     return $service->name;
                 })->toArray(),
+                'status' => $appointment->status,
                 // Puedes agregar más campos si lo necesitas
             ];
         });
@@ -104,7 +105,7 @@ class AppointmentController extends Controller
             'end_time' => $end,
             'total_price' => $totalPrice,
             'notes' => $validated['notes'] ?? null,
-            'status' => 'pending',
+            'status' => 'Pendiente',
         ]);
 
         $appointment->services()->attach($validated['service_ids']);
@@ -134,6 +135,21 @@ class AppointmentController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+    /**
+     * Update the status of the specified resource in storage.
+     */
+    public function updateStatus(Request $request, string $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:Pendiente,Confirmada,Cancelada',
+        ]);
+        
+        $appointment = Appointment::findOrFail($id);
+        $appointment->status = $validated['status'];
+        $appointment->save();
+
+        return redirect()->route('appointments')->with('success', 'Estatus de la cita actualizado correctamente.');
     }
 
     /**

@@ -17,11 +17,11 @@ const sidebarNavItems: NavItem[] = [
         url: '/appointments/create',
         icon: null,
     },
-    {
+    /*{
         title: 'Editar cita',
         url: '/appointments/edit',
         icon: null,
-    },
+    },*/
 ];
 
 export default function AppointmentsLayout({ children }: PropsWithChildren) {

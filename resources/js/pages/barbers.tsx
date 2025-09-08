@@ -6,6 +6,7 @@ import { CreateBarber } from '@/components/create-barber';
 import { DeleteBarber } from '@/components/delete-barber';
 import { Button } from '@/components/ui/button';
 import { CommonList } from '@/components/common-list';
+import { UserPenIcon } from "lucide-react"
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -41,7 +42,7 @@ export default function Barbers() {
                     {(barber) => (
                         <div className="flex gap-2">
                            <Button variant="outline" size="sm" onClick={() => handleEdit(barber.id)}>
-                                Editar
+                                <UserPenIcon />
                             </Button>
                             <DeleteBarber barberId={barber.id} />
                         </div>

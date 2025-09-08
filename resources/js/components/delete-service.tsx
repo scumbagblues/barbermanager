@@ -1,6 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '@/components/ui/button';
+import { Trash2 } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export function DeleteService({ serviceId }: { serviceId: number }) {
@@ -25,7 +26,7 @@ export function DeleteService({ serviceId }: { serviceId: number }) {
         <div className="space-y-6">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">Borrar Servicio</Button>
+                        <Button variant="destructive"><Trash2 /></Button>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>¿Esta seguro de borrar este servicio?</DialogTitle>

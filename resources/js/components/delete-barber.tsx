@@ -1,6 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '@/components/ui/button';
+import { Trash2 } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 export function DeleteBarber({ barberId }: { barberId: number }) {
@@ -25,7 +26,9 @@ export function DeleteBarber({ barberId }: { barberId: number }) {
         <div className="space-y-6">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">Borrar Barbero</Button>
+                        <Button variant="destructive">
+                            <Trash2 />
+                        </Button>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>¿Esta seguro de borrar a este barbero?</DialogTitle>
