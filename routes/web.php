@@ -5,6 +5,7 @@ use App\Http\Controllers\BarberShop\BarberController;
 use App\Http\Controllers\BarberShop\BarberShopController;
 use App\Http\Controllers\BarberShop\ClientController;
 use App\Http\Controllers\BarberShop\ServiceController;
+use App\Http\Controllers\BarberShop\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,13 +15,16 @@ use Inertia\Inertia;
 
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('auth/login');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
+    /*Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    */
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('barber-settings', [BarberShopController::class, 'index'])->name('barber-settings');
     Route::post('barber-settings', [BarberShopController::class, 'store'])->name('barber-settings');

@@ -37,7 +37,7 @@ export default function Barbers() {
                 <CommonList
                     headers={headers}
                     data={barbers || []} // Si barbers es undefined, pasa un array vacío
-                    caption="A list of your barbers."
+                    caption="Lista de Barberos."
                 >
                     {(barber) => (
                         <div className="flex gap-2">

@@ -64,11 +64,12 @@ export default function AppointmentCreate() {
     }, [data.service_ids, services]);
 
     useEffect(() => {
-        
+        // 1. Si no hay barbero, fecha o no existen horarios, no mostrar nada.
         if (!data.barber_id || !data.date || !barberSchedules || barberSchedules.length === 0) {
             setAvailableTimes([]);
             return;
         }
+        // 2. Si no hay hora de inicio o fin en el horario, no mostrar nada.
         const slots: string[] = [];
         // Si hay horarios configurados
         const barberSchedule = barberSchedules[0];

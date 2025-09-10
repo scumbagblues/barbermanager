@@ -42,6 +42,7 @@ export interface SharedData {
     barbers?: Barber[]; // Lista de barberos
     clients?: Client[];
     appointments?: Appointment[]; // Lista de citas
+    todayAppointments?: TodayAppointment[]; // Lista de citas de hoy
     [key: string]: unknown;
 }
 
@@ -100,6 +101,17 @@ export interface Appointment {
     date: string;
     time: string;
     status: string;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface TodayAppointment {
+    id: number;
+    start_time: string;
+    client: string;
+    barber: string;
+    services: string[];
+    status: string;
+    price: number;
     [key: string]: unknown; // This allows for additional properties...
 }
 

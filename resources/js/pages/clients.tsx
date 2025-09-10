@@ -4,9 +4,8 @@ import { SharedData, type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { CreateClient } from '@/components/create-client';
 import { DeleteClient } from '@/components/delete-client';
-import { Button } from '@/components/ui/button';
-import { CommonList } from '@/components/common-list';
-import { UserPenIcon } from "lucide-react";
+import { ClientsTable } from '@/components/clients-table';
+
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -19,8 +18,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Clients() {
     const { clients } = usePage<SharedData>().props;
  
-    const headers = ['name', 'email', 'phone', 'barber_name', 'Actions'];
-    
     const handleEdit = (id: number) => {
         router.visit(route('clients.edit', { id }));
     };
@@ -34,20 +31,11 @@ export default function Clients() {
                 </div>
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                     
-                <CommonList
-                    headers={headers}
-                    data={clients || []} // Si clients es undefined, pasa un array vacío
-                    caption="Lista de Clientes."
-                >
-                    {(client) => (
-                        <div className="flex gap-2">
-                           <Button variant="outline" size="sm" onClick={() => handleEdit(client.id)}>
-                                <UserPenIcon />
-                            </Button>
-                            <DeleteClient clientId={client.id} />
-                        </div>
-                    )}
-                </CommonList>
+                <ClientsTable
+                    clients={clients || []}
+                    onEdit={handleEdit}
+                    onDelete={id => <DeleteClient clientId={id} />}
+                />
                    
                 </div>
             </div>

@@ -1,21 +1,20 @@
-
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { OrbitIcon } from "lucide-react"
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
+import { OrbitIcon } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-export function ChangeStatusAppointment({ appointmentId, currentStatus }: { appointmentId: number, currentStatus: string }) {
-
+export function ChangeStatusAppointment({ appointmentId, currentStatus, redirectTo }: { appointmentId: number, currentStatus: string, redirectTo?: string }) {
 
     const [status, setStatus] = useState(currentStatus);
     const [open, setOpen] = useState(false);
-    const { put, setData, processing, reset, clearErrors } = useForm({ status });
+    const { put, setData, processing, reset, clearErrors } = useForm({ status, redirectTo });
 
     // Actualiza el campo status en el form cada vez que cambie el select
     const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setStatus(e.target.value);
-        setData('status', e.target.value);
+    setStatus(e.target.value);
+    setData('status', e.target.value);
     };
 
     const changeStatus: FormEventHandler = (e) => {
@@ -23,7 +22,7 @@ export function ChangeStatusAppointment({ appointmentId, currentStatus }: { appo
         put(route('appointments.updateStatus', { id: appointmentId }), {
             preserveScroll: true,
             onSuccess: () => {
-                setOpen(false); // Cierra el modal
+                setOpen(false);
             },
             onFinish: () => {
                 reset();
@@ -41,7 +40,12 @@ export function ChangeStatusAppointment({ appointmentId, currentStatus }: { appo
         <div className="space-y-6">
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline"><OrbitIcon /></Button>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button variant="outline" aria-label="Cambiar estatus de la cita"><OrbitIcon /></Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Cambiar estatus</TooltipContent>
+                    </Tooltip>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogTitle>Cambiar estatus de la cita</DialogTitle>

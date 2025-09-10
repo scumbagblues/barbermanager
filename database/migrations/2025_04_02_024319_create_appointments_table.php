@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->dateTime('start_time'); // inicio de la cita
                 $table->dateTime('end_time');   // fin de la cita
                 $table->decimal('total_price', 8, 2)->default(0); // precio total de los servicios
-                $table->string('status')->default('pending'); // pending, confirmed, canceled
+                $table->string('status')->default('Pendiente'); // Pendiente, Cancelada, Confirmada
                 $table->text('notes')->nullable(); // additional notes for the appointment
                 $table->unsignedBigInteger('client_id');
                 $table->unsignedBigInteger('barber_id');

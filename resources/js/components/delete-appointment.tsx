@@ -1,6 +1,7 @@
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Trash2 } from "lucide-react"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
@@ -26,9 +27,14 @@ export function DeleteAppointment({ appointmentId }: { appointmentId: number }) 
         <div className="space-y-6">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="destructive">
-                            <Trash2 />
-                        </Button>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="destructive" aria-label="Eliminar cita">
+                                    <Trash2 />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Eliminar cita</TooltipContent>
+                        </Tooltip>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>¿Esta seguro de borrar esta cita?</DialogTitle>

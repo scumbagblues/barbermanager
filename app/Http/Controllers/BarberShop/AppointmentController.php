@@ -16,12 +16,17 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        // Get all appointments
-        $appointments = Appointment::with(['client', 'barber', 'services'])->get();
+        // Get appointments from now onwards (fecha y hora)
+        $now = now();
+        $appointments = Appointment::with(['client', 'barber', 'services'])
+            ->where('start_time', '>=', $now)
+            ->get();
         $result = $appointments->map(function($appointment) {
             return [
                 'id' => $appointment->id,
-                'fecha_cita' => $appointment->start_time,
+                'fecha_cita' => 
+                    \Carbon\Carbon::parse($appointment->start_time)
+                        ->format('d/m/Y g:i a'),
                 'precio' => '$' . $appointment->total_price,
                 'cliente' => $appointment->client ? $appointment->client->name : null,
                 'barbero' => $appointment->barber ? $appointment->barber->name : null,
@@ -110,7 +115,7 @@ class AppointmentController extends Controller
 
         $appointment->services()->attach($validated['service_ids']);
 
-        return redirect()->route('appointments')->with('success', 'Cita creada correctamente.');
+        return redirect()->route('dashboard')->with('success', 'Cita creada correctamente.');
     }
 
     /**
@@ -143,12 +148,16 @@ class AppointmentController extends Controller
     {
         $validated = $request->validate([
             'status' => 'required|in:Pendiente,Confirmada,Cancelada',
+            'redirectTo' => 'nullable|string',
         ]);
-        
+
         $appointment = Appointment::findOrFail($id);
         $appointment->status = $validated['status'];
         $appointment->save();
 
+        if (!empty($validated['redirectTo'])) {
+            return redirect($validated['redirectTo'])->with('success', 'Estatus de la cita actualizado correctamente.');
+        }
         return redirect()->route('appointments')->with('success', 'Estatus de la cita actualizado correctamente.');
     }
 

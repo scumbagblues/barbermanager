@@ -8,12 +8,14 @@ class ClientSeeder extends Seeder
 {
     public function run(): void
     {
-        Client::create([
-            'name' => 'Cliente Demo',
-            'email' => 'cliente@demo.com',
-            'phone' => '555-987-6543',
-            'barber_id' => 1,
-            'barbershop_id' => 1,
-        ]);
+        for ($i = 1; $i <= 15; $i++) {
+            Client::create([
+                'name' => "Cliente Demo $i",
+                'email' => "cliente$i@demo.com",
+                'phone' => '555-987-' . str_pad($i, 4, '0', STR_PAD_LEFT),
+                'barber_id' => 1,
+                'barbershop_id' => 1,
+            ]);
+        }
     }
 }
