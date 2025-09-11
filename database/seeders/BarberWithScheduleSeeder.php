@@ -1,9 +1,6 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Barbershop\Barber;
-use App\Models\Barbershop\BarberSchedule;
 
 class BarberWithScheduleSeeder extends Seeder
 {
@@ -41,9 +38,9 @@ class BarberWithScheduleSeeder extends Seeder
         ];
 
         foreach ($barbersData as $barberData) {
-            $barber = Barber::create($barberData);
+            $barber = App\Models\Barbershop\Barber::create($barberData);
             foreach (range(0, 4) as $dayOfWeek) {
-                BarberSchedule::create([
+                App\Models\Barbershop\BarberSchedule::create([
                     'barber_id' => $barber->id,
                     'day_of_week' => $dayOfWeek,
                     'start_hour' => '10:00:00',

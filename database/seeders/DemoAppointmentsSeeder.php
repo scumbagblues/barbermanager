@@ -1,20 +1,14 @@
 <?php
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Barbershop\Appointment;
-use App\Models\Barbershop\Client;
-use App\Models\Barbershop\Barber;
-use App\Models\Barbershop\Service;
-use Carbon\Carbon;
 
 class DemoAppointmentsSeeder extends Seeder
 {
     public function run(): void
     {
-        $barbers = Barber::all();
-        $clients = Client::all();
-        $services = Service::all();
+    $barbers = App\Models\Barbershop\Barber::all();
+    $clients = App\Models\Barbershop\Client::all();
+    $services = App\Models\Barbershop\Service::all();
         $statuses = ['Pendiente', 'Confirmada', 'Cancelada'];
         $startDate = Carbon::now()->startOfWeek();
 
@@ -36,7 +30,7 @@ class DemoAppointmentsSeeder extends Seeder
             $end = $start->copy()->addMinutes($totalDuration);
             $status = $statuses[array_rand($statuses)];
 
-            $appointment = Appointment::create([
+            $appointment = App\Models\Barbershop\Appointment::create([
                 'barber_id' => $barber->id,
                 'client_id' => $client->id,
                 'start_time' => $start,

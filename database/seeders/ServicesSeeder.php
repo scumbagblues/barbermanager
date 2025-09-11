@@ -12,7 +12,7 @@ class ServicesSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Barbershop\Service::create([
+    App\Models\Barbershop\Service::create([
             'name' => 'Corte de Cabello',
             'duration' => 30,
             'description' => 'Corte de cabello sencillo.',
