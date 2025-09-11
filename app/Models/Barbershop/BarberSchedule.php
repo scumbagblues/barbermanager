@@ -4,7 +4,7 @@ namespace App\Models\Barbershop;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BarberSchedule extends Model
+class Barberschedule extends Model
 {
     protected $fillable = [
         'barber_id',
@@ -12,6 +12,8 @@ class BarberSchedule extends Model
         'start_hour',
         'end_hour',
     ];
+
+    protected $table = 'barber_schedules';
 
     public function barber()
     {

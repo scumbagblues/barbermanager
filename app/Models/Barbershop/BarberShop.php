@@ -4,7 +4,7 @@ namespace App\Models\Barbershop;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BarberShop extends Model
+class Barbershop extends Model
 {
     protected $fillable = [
         'name',

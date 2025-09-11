@@ -11,6 +11,8 @@ class BarberVacation extends Model
         'date',
     ];
 
+    protected $table = 'barber_vacations';
+
     public function barber()
     {
         return $this->belongsTo(Barber::class);
