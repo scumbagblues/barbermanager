@@ -13,7 +13,7 @@ class BarberShopController extends Controller
      */
     public function index()
     {
-        $BarberShopSettings = BarberShop::first();
+        $BarberShopSettings = Barbershop::first();
         return inertia('barbershop/settings', [
             'barberShopSettings' => $BarberShopSettings,
         ]);
@@ -39,12 +39,12 @@ class BarberShopController extends Controller
             'email' => 'required|email|max:255',
         ]);
 
-        $barberShopSettings = BarberShop::first();
+        $barberShopSettings = Barbershop::first();
 
         if ($barberShopSettings) {
             $barberShopSettings->update($validatedData);
         } else {
-            BarberShop::create($validatedData);
+            Barbershop::create($validatedData);
         }
 
         return redirect()->route('barber-settings')
