@@ -8,7 +8,7 @@ class BarbershopSeeder extends Seeder
 {
     public function run(): void
     {
-        App\Models\Barbershop\Barbershop::create([
+        Barbershop::create([
             'name' => 'Rafles Barbershop',
             'address' => 'Calle Ficticia 123',
             'phone' => '555-123-4567',
