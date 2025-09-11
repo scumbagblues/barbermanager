@@ -14,11 +14,15 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    // NOTA IMPORTANTE:
+    // Inertia busca la vista por el nombre que se le pasa aquí ('dashboard').
+    // Si el archivo JS/TS del frontend se llama 'dashboard.tsx', debe usarse en minúsculas.
+    // Aunque Laravel puede mostrar un warning "Inertia view [dashboard] not found", la vista se carga correctamente si el nombre coincide.
+    // Este warning se puede ignorar si la app funciona bien.
     {   
-        $appointments = $this->getTodayAppointments();
-        $clients = $this->getTodayClients();
-        
-        
+        $date = request()->input('date', Carbon::today()->toDateString());
+        $appointments = $this->getTodayAppointments($date);
+        $clients = $this->getTodayClients($date);
         return inertia('dashboard', [
             'todayAppointments' => $appointments,
             'todayClients' => $clients,
@@ -73,10 +77,10 @@ class DashboardController extends Controller
         //
     }
 
-    protected function getTodayAppointments()
+    protected function getTodayAppointments($date = null)
     {
-        $today = Carbon::today();
-        $appointments = Appointment::whereDate('start_time', $today)
+    $targetDate = $date ? Carbon::parse($date) : Carbon::today();
+    $appointments = Appointment::whereDate('start_time', $targetDate)
             ->with(['client', 'barber', 'services'])
             ->orderBy('start_time', 'asc')
             ->get();
@@ -98,10 +102,10 @@ class DashboardController extends Controller
         return $todayAppointments;
     }
 
-    protected function getTodayClients()
+    protected function getTodayClients($date = null)
     {
-        $today = Carbon::today();
-        return Client::whereDate('created_at', $today)
+    $targetDate = $date ? Carbon::parse($date) : Carbon::today();
+    return Client::whereDate('created_at', $targetDate)
             ->orderBy('created_at', 'asc')
             ->get();
     }

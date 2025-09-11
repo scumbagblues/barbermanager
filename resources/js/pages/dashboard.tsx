@@ -8,9 +8,9 @@ import { router } from '@inertiajs/react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from '@/components/ui/badge';
+import { Calendar } from "@/components/ui/calendar";
 import { ChangeStatusAppointment } from '@/components/change-status-appointment';
 import { Clock, CalendarDays, TrendingUp, CheckCircle2, XCircle } from "lucide-react";
-
 
 import { Kpi } from '@/components/kpi';
 
@@ -23,6 +23,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 
 export default function Dashboard() {
+    // ...existing code...
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+    const [showCalendar, setShowCalendar] = useState(false);
+
+    const getButtonDateText = () => {
+        const isToday = !selectedDate || (selectedDate && selectedDate.toDateString() === new Date().toDateString());
+        if (isToday) return 'Hoy';
+        if (selectedDate) {
+            return selectedDate.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+        return 'Hoy';
+    };
+    const buttonDateText = getButtonDateText();
 
     const { flash } = usePage<SharedData>().props;
     const [showSuccess, setShowSuccess] = useState(!!flash?.success);
@@ -46,6 +59,23 @@ export default function Dashboard() {
     const handleCreateAppointment = () => {
         router.visit(route('appointments.create'));
     };
+
+    // ...existing code...
+
+    const handleDateChange = (date?: Date) => {
+        setSelectedDate(date);
+        setShowCalendar(false);
+        if (date) {
+            router.visit(route('dashboard'), {
+                method: 'get',
+                data: {
+                    date: date.toISOString().slice(0, 10),
+                },
+                preserveState: true,
+                preserveScroll: true,
+            });
+        }
+    };
     
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -64,9 +94,21 @@ export default function Dashboard() {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="mb-6 flex items-center justify-end">
                     <div className="flex gap-2">
-                        <Button variant="outline"><CalendarDays className="mr-2 h-4 w-4"/>Hoy</Button>
+                        <Button variant="outline" onClick={() => setShowCalendar(!showCalendar)}>
+                            <CalendarDays className="mr-2 h-4 w-4"/>{buttonDateText}
+                        </Button>
                         <Button onClick={handleCreateAppointment}>Crear cita</Button>
                     </div>
+                    {showCalendar && (
+                        <div className="fixed top-20 right-8 z-50 flex flex-col items-center">
+                            <Calendar
+                                mode="single"
+                                selected={selectedDate}
+                                onSelect={handleDateChange}
+                                className="w-full rounded border bg-background shadow p-2 text-sm"
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     {/* Card: Citas de hoy */}
@@ -77,42 +119,42 @@ export default function Dashboard() {
                                 <span className="text-muted-foreground ml-2 text-base font-normal">{today}</span>
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            {todayAppointments && todayAppointments.length > 0 ? (
-                                <div className="grid grid-cols-1 gap-3">
-                                    {todayAppointments.map((appointment) => (
-                                        <div key={appointment.id} className="flex items-center justify-between rounded-2xl border bg-white p-3">
-                                            <div className="flex flex-col">
-                                                <span className="text-sm font-medium">
-                                                    {appointment.start_time} • {appointment.client}
-                                                </span>
-                                                <span className="text-xs text-slate-500">
-                                                    {appointment.services.join(', ')} — {appointment.barber}
-                                                </span>
+                            <CardContent>
+                                {Array.isArray(todayAppointments) && todayAppointments.length > 0 ? (
+                                    <div className="flex flex-col gap-2">
+                                        {todayAppointments.map(appointment => (
+                                            <div key={appointment.id} className="flex items-center justify-between rounded-2xl border bg-white p-3">
+                                                <div className="flex flex-col">
+                                                    <span className="text-sm font-medium">
+                                                        {appointment.start_time} • {appointment.client}
+                                                    </span>
+                                                    <span className="text-xs text-slate-500">
+                                                        {appointment.services.join(', ')} — {appointment.barber}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Badge
+                                                        variant={
+                                                            appointment.status === 'Pendiente'
+                                                                ? 'default'
+                                                                : appointment.status === 'Confirmada'
+                                                                    ? 'secondary'
+                                                                    : appointment.status === 'Cancelada'
+                                                                        ? 'destructive'
+                                                                        : 'outline'
+                                                        }
+                                                    >
+                                                        {appointment.status}
+                                                    </Badge>
+                                                    <ChangeStatusAppointment appointmentId={appointment.id} currentStatus={appointment.status} redirectTo="/dashboard" />
+                                                </div>
                                             </div>
-                                            <div className="flex items-center gap-2">
-                                                <Badge
-                                                    variant={
-                                                        appointment.status === 'Pendiente'
-                                                            ? 'default'
-                                                            : appointment.status === 'Confirmada'
-                                                              ? 'secondary'
-                                                              : appointment.status === 'Cancelada'
-                                                                ? 'destructive'
-                                                                : 'outline'
-                                                    }
-                                                >
-                                                    {appointment.status}
-                                                </Badge>
-                                                <ChangeStatusAppointment appointmentId={appointment.id} currentStatus={appointment.status} redirectTo="/dashboard" />
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <p className="text-muted-foreground text-sm">No appointments for today.</p>
-                            )}
-                        </CardContent>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-muted-foreground text-sm">No appointments for today.</p>
+                                )}
+                            </CardContent>
                     </Card>
                     {/* Card: Resumen del día */}
                     <Card>

@@ -1,3 +1,4 @@
+@import "react-day-picker/dist/style.css";
 @import 'tailwindcss';
 
 @plugin 'tailwindcss-animate';
