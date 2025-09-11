@@ -4,9 +4,10 @@ namespace App\Http\Controllers\BarberShop;
 use App\Http\Controllers\Controller;
 use App\Models\Barbershop\Appointment;
 use App\Models\Barbershop\Barber;
+use App\Models\Barbershop\BarberSchedule;
 use App\Models\Barbershop\Client;
 use App\Models\Barbershop\Service;
-use App\Models\Barbershop\BarberSchedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -25,7 +26,7 @@ class AppointmentController extends Controller
             return [
                 'id' => $appointment->id,
                 'fecha_cita' => 
-                    \Carbon\Carbon::parse($appointment->start_time)
+                    Carbon::parse($appointment->start_time)
                         ->format('d/m/Y g:i a'),
                 'precio' => '$' . $appointment->total_price,
                 'cliente' => $appointment->client ? $appointment->client->name : null,

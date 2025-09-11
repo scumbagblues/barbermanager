@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BarberShop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barbershop\Appointment;
+use App\Models\Barbershop\Client; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,12 @@ class DashboardController extends Controller
     public function index()
     {   
         $appointments = $this->getTodayAppointments();
+        $clients = $this->getTodayClients();
+        
         
         return inertia('dashboard', [
             'todayAppointments' => $appointments,
+            'todayClients' => $clients,
         ]);
     }
 
@@ -92,6 +96,14 @@ class DashboardController extends Controller
         })->toArray();     
 
         return $todayAppointments;
+    }
+
+    protected function getTodayClients()
+    {
+        $today = Carbon::today();
+        return Client::whereDate('created_at', $today)
+            ->orderBy('created_at', 'asc')
+            ->get();
     }
 
     protected function getFormattedTodayAppointments($timetoBeFormatted)

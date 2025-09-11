@@ -41,11 +41,18 @@ export function ChangeStatusAppointment({ appointmentId, currentStatus, redirect
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button variant="outline" aria-label="Cambiar estatus de la cita"><OrbitIcon /></Button>
-                        </TooltipTrigger>
-                        <TooltipContent>Cambiar estatus</TooltipContent>
-                    </Tooltip>
+        <TooltipTrigger asChild>
+            <span>
+                <DialogTrigger asChild>
+                    <Button variant="outline" aria-label="Cambiar estatus de la cita">
+                        <OrbitIcon />
+                    </Button>
+                </DialogTrigger>
+            </span>
+        </TooltipTrigger>
+        <TooltipContent>Cambiar estatus</TooltipContent>
+    </Tooltip>
+                    
                 </DialogTrigger>
                 <DialogContent>
                     <DialogTitle>Cambiar estatus de la cita</DialogTitle>
