@@ -1,12 +1,12 @@
+<?php
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\Barbershop\Appointment;
 use App\Models\Barbershop\Client;
 use App\Models\Barbershop\Barber;
 use App\Models\Barbershop\Service;
 use Carbon\Carbon;
-<?php
-namespace Database\Seeders;
-
 
 class DemoAppointmentsSeeder extends Seeder
 {
