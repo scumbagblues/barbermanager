@@ -25,17 +25,19 @@ export function DeleteAppointment({ appointmentId }: { appointmentId: number }) 
 
     return (
         <div className="space-y-6">
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
+            <Dialog>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <span>
+                            <DialogTrigger asChild>
                                 <Button variant="destructive" aria-label="Eliminar cita">
                                     <Trash2 />
                                 </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Eliminar cita</TooltipContent>
-                        </Tooltip>
-                    </DialogTrigger>
+                            </DialogTrigger>
+                        </span>
+                    </TooltipTrigger>
+                    <TooltipContent>Eliminar cita</TooltipContent>
+                </Tooltip>
                     <DialogContent>
                         <DialogTitle>¿Esta seguro de borrar esta cita?</DialogTitle>
                         <DialogDescription>

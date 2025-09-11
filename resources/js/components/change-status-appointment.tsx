@@ -41,32 +41,23 @@ export function ChangeStatusAppointment({ appointmentId, currentStatus, redirect
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Tooltip>
-        <TooltipTrigger asChild>
-            <span>
-                <DialogTrigger asChild>
-                    <Button variant="outline" aria-label="Cambiar estatus de la cita">
-                        <OrbitIcon />
-                    </Button>
-                </DialogTrigger>
-            </span>
-        </TooltipTrigger>
-        <TooltipContent>Cambiar estatus</TooltipContent>
-    </Tooltip>
-                    
+                        <TooltipTrigger asChild>
+                            <span>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline" aria-label="Cambiar estatus de la cita">
+                                        <OrbitIcon />
+                                    </Button>
+                                </DialogTrigger>
+                            </span>
+                        </TooltipTrigger>
+                        <TooltipContent>Cambiar estatus</TooltipContent>
+                    </Tooltip>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogTitle>Cambiar estatus de la cita</DialogTitle>
-                    <DialogDescription>
-                        Selecciona el nuevo estatus para esta cita.
-                    </DialogDescription>
+                    <DialogDescription>Selecciona el nuevo estatus para esta cita.</DialogDescription>
                     <form className="space-y-6" onSubmit={changeStatus}>
-                        <select
-                            name="status"
-                            id="status"
-                            className="w-full border rounded p-2"
-                            value={status}
-                            onChange={handleStatusChange}
-                        >
+                        <select name="status" id="status" className="w-full rounded border p-2" value={status} onChange={handleStatusChange}>
                             <option value="Pendiente">Pendiente</option>
                             <option value="Confirmada">Confirmada</option>
                             <option value="Cancelada">Cancelada</option>
