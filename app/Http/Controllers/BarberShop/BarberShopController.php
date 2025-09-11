@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BarberShop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Barbershop\BarberShop;
+use App\Models\Barbershop\Barbershop;
 use Illuminate\Http\Request;
 
 class BarberShopController extends Controller
