@@ -4,7 +4,7 @@ namespace App\Http\Controllers\BarberShop;
 use App\Http\Controllers\Controller;
 use App\Models\Barbershop\Appointment;
 use App\Models\Barbershop\Barber;
-use App\Models\Barbershop\BarberSchedule;
+use App\Models\Barbershop\Barberschedule;
 use App\Models\Barbershop\Client;
 use App\Models\Barbershop\Service;
 use Carbon\Carbon;
@@ -191,7 +191,7 @@ class AppointmentController extends Controller
             // Migración: 0=lunes, ..., 6=domingo
             $carbonDay = $carbonDate->dayOfWeek; // 0=domingo, 1=lunes, ..., 6=sábado
             $dayOfWeek = $carbonDay === 0 ? 6 : $carbonDay - 1; // 0=lunes, ..., 6=domingo
-            $barberSchedules = BarberSchedule::where('barber_id', $barberId)
+            $barberSchedules = Barberschedule::where('barber_id', $barberId)
                 ->where('day_of_week', $dayOfWeek)
                 ->get()
                 ->map(function($schedule) {
