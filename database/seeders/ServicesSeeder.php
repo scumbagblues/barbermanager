@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Barbershop\Service;
 
 class ServicesSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class ServicesSeeder extends Seeder
      */
     public function run(): void
     {
-    App\Models\Barbershop\Service::create([
+    Service::create([
             'name' => 'Corte de Cabello',
             'duration' => 30,
             'description' => 'Corte de cabello sencillo.',
