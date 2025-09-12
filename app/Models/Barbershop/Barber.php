@@ -11,6 +11,7 @@ class Barber extends Model
         'email',
         'phone',
         'address',
+        'color',
         'barbershop_id',
     ];  
 }

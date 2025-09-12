@@ -71,6 +71,7 @@ export interface Barber {
     email: string;
     phone: string;
     address: string;
+    color: string;
     [key: string]: unknown; // This allows for additional properties...
 }
 

@@ -123,7 +123,10 @@ export default function Dashboard() {
                                 {Array.isArray(todayAppointments) && todayAppointments.length > 0 ? (
                                     <div className="flex flex-col gap-2">
                                         {todayAppointments.map(appointment => (
-                                            <div key={appointment.id} className="flex items-center justify-between rounded-2xl border bg-white p-3">
+                                            <div
+                                                key={appointment.id}
+                                                className="flex items-center justify-between rounded-2xl border p-3 bg-white"
+                                            >
                                                 <div className="flex flex-col">
                                                     <span className="text-sm font-medium">
                                                         {appointment.start_time} • {appointment.client}
@@ -132,8 +135,14 @@ export default function Dashboard() {
                                                         {appointment.services.join(', ')} — {appointment.barber}
                                                     </span>
                                                 </div>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-3 min-h-[2rem]">
+                                                    <span
+                                                        style={{ backgroundColor: typeof appointment.barber_color === 'string' ? appointment.barber_color : '#ccc' }}
+                                                        className="inline-block w-6 h-6 rounded-full border border-gray-300 flex-shrink-0"
+                                                        title={appointment.barber}
+                                                    />
                                                     <Badge
+                                                        className="h-6 flex items-center px-2 min-w-[90px] justify-center"
                                                         variant={
                                                             appointment.status === 'Pendiente'
                                                                 ? 'default'
@@ -146,7 +155,9 @@ export default function Dashboard() {
                                                     >
                                                         {appointment.status}
                                                     </Badge>
-                                                    <ChangeStatusAppointment appointmentId={appointment.id} currentStatus={appointment.status} redirectTo="/dashboard" />
+                                                    <div className="flex items-center h-6">
+                                                        <ChangeStatusAppointment appointmentId={appointment.id} currentStatus={appointment.status} redirectTo="/dashboard" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}

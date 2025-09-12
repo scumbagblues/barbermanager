@@ -42,6 +42,7 @@ class BarberController extends Controller
             'email' => 'required|email|max:255|unique:barbers,email',
             'phone' => 'required|string|max:15|unique:barbers,phone',
             'address' => 'nullable|string|max:255',
+            'color' => 'nullable|string|size:7', // HEX color
         ]);
 
         // Get Barbershop ID from Barber Shop Table
@@ -49,7 +50,7 @@ class BarberController extends Controller
         $request->merge(['barbershop_id' => $barbershopId]);
 
         //Store the barber in the database
-        Barber::create($request->all());
+        Barber::create($request->only(['name', 'email', 'phone', 'address', 'color', 'barbershop_id']));
 
         return redirect()->route('barbers')->with('success', 'Barber created successfully.');
     }
@@ -88,10 +89,11 @@ class BarberController extends Controller
             'email' => 'required|email|max:255|unique:barbers,email,' . $id,
             'phone' => 'required|string|max:15|unique:barbers,phone,' . $id,
             'address' => 'nullable|string|max:255',
+            'color' => 'nullable|string|size:7', // HEX color
         ]);
 
         $barber = Barber::findOrFail($id);
-        $barber->update($request->only(['name', 'email', 'phone', 'address']));
+        $barber->update($request->only(['name', 'email', 'phone', 'address', 'color']));
 
         // Guardar horarios
         Barberschedule::where('barber_id', $barber->id)->delete();

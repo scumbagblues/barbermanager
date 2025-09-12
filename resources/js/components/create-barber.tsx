@@ -18,6 +18,7 @@ export function CreateBarber() {
         phone: '',
         address: '',
         barbershop_id: '',
+        color: '#000000',
     });
 
     const [showSuccess, setShowSuccess] = useState(!!flash?.success);
@@ -125,6 +126,18 @@ export function CreateBarber() {
                         </div>
 
                 
+                        <div className="grid gap-2 max-w-md">
+                            <Label htmlFor="color">Color identificador</Label>
+                            <input
+                                type="color"
+                                id="color"
+                                name="color"
+                                value={data.color}
+                                onChange={e => setData('color', e.target.value)}
+                                className="w-12 h-8 rounded border"
+                            />
+                            <InputError className="mt-2" message={errors.color} />
+                        </div>
                         <div className="flex items-center gap-4">
                             <Button disabled={processing}>Guardar</Button>
                         </div>

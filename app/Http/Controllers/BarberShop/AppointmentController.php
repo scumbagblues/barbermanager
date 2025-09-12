@@ -31,6 +31,7 @@ class AppointmentController extends Controller
                 'precio' => '$' . $appointment->total_price,
                 'cliente' => $appointment->client ? $appointment->client->name : null,
                 'barbero' => $appointment->barber ? $appointment->barber->name : null,
+                'barber_color' => $appointment->barber ? $appointment->barber->color : null,
                 'servicios' => $appointment->services->map(function($service) {
                     return $service->name;
                 })->toArray(),

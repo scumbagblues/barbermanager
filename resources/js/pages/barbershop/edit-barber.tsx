@@ -18,6 +18,7 @@ type BarberFormData = {
     address?: string;
     vacation_date?: string;
     vacations?: Vacation[];
+    color?: string;
     [key: `schedule_${number}_start`]: string;
     [key: `schedule_${number}_end`]: string;
 };
@@ -48,6 +49,7 @@ export default function EditBarber() {
         email: barber?.email,
         phone: barber?.phone,
         address: barber?.address,
+        color: barber?.color ?? '#000000',
         vacations: Array.isArray(vacations) ? vacations : [],
     };
 
@@ -243,6 +245,18 @@ export default function EditBarber() {
                                     </div>
                                 </div>
 
+                                <div className="grid max-w-md gap-2">
+                                    <Label htmlFor="color">Color identificador</Label>
+                                    <input
+                                        type="color"
+                                        id="color"
+                                        name="color"
+                                        value={data.color}
+                                        onChange={e => setData('color', e.target.value)}
+                                        className="w-12 h-8 rounded border"
+                                    />
+                                    <InputError className="mt-2" message={errors.color} />
+                                </div>
                                 <div className="flex items-center gap-4">
                                     <Button disabled={processing}>Guardar</Button>
                                 </div>

@@ -91,6 +91,7 @@ class DashboardController extends Controller
                 'start_time' => $this->getFormattedTodayAppointments($appointment->start_time),
                 'client' => $appointment->client ? $appointment->client->name : null,
                 'barber' => $appointment->barber ? $appointment->barber->name : null,
+                'barber_color' => $appointment->barber ? $appointment->barber->color : null,
                 'services' => $appointment->services->map(function($service) {
                     return $service->name;
                 })->toArray(),
